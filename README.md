@@ -1,1 +1,56 @@
-# netatmo-lametric-proxy
+# LaMetric app for Netatmo Weather Station
+
+A simple client which turns LaMetric into Netamo display. This client polls Netatmo API and shows the weather data on LaMetric display.
+
+![screencast](netatmo.gif)
+
+## LaMetric Setup
+
+Go to the [LaMetric Developper site](https://developer.lametric.com)
+
+And create an app with 4 screens:
+- the first is a simple "Name" screen for Outdoor temperature value
+- the second is a "Sparkline"  screen for Outdoor temperature graph
+- the third is a simple "Name" screen for Outdoor humidity value
+- the forth is a simple "Name" screen for Pressure trend (icon) and value
+
+Set the app to use Push mode. Publish you app as a private app.
+
+Keep a copy of the: 
+- App ID 
+- Access Token
+
+## Netatmo Setup
+
+Go to the [Netatmo Developer Site](https://dev.netatmo.com)
+
+Again create an app. Leave Redirect URI / Webhook URI empty. Make sure to enable the app. 
+
+Keep a copy of the: 
+- Client id
+- Client secret
+- Your netatmo username (email) and password
+
+## Update Script 
+
+Once you have created your LaMetric and Netatmo apps you can use APIs to access the data. Now open the `updateLaMetric.py` script and copy in the credentials from the steps above:
+
+```
+# Netatmo authentication
+client_id     = '...'
+client_secret = '...'
+username      = '...'
+password      = '...'
+
+# LaMetric authentication
+access_token  = '...'
+app_id        = '...'
+```
+
+Running `updateLaMetric.py` script should give you immediate feedback on how successful you are with the setup process. Once everything is OK the easiest way to keep the LaMetric display updated is via cron task:
+
+```
+*/10 * * * * /home/lametric/updateLaMetric.py
+```
+
+Enjoy!
