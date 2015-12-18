@@ -1,6 +1,6 @@
 # LaMetric app for Netatmo Weather Station
 
-A simple client which turns LaMetric into Netamo display. This client polls Netatmo API and shows the weather data on LaMetric display.
+A simple client which turns LaMetric into Netamo display. This client polls [Netatmo API](https://github.com/philippelt/netatmo-api-python)  and shows the weather data on LaMetric display.
 
 ![screencast](netatmo.gif)
 
