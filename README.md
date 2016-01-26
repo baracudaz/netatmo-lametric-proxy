@@ -15,7 +15,7 @@ And create an app with 4 screens:
 3. third is a simple "Name" screen for Outdoor humidity value
 4. forth is a simple "Name" screen for Pressure trend (icon) and value
 
-Set the app to use Push mode. Publish your app as a private app.
+Make sure to set the app to use *Push Mode*. Publish your app as a private app.
 
 Keep a copy of the: 
 - App ID 
