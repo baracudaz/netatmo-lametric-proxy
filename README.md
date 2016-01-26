@@ -9,6 +9,7 @@ A simple client which turns LaMetric into Netamo display. This client polls [Net
 Go to the [LaMetric Developper site](https://developer.lametric.com)
 
 And create an app with 4 screens:
+
 1. first is a simple "Name" screen for Outdoor temperature value
 2. second is a "Sparkline"  screen for Outdoor temperature graph
 3. third is a simple "Name" screen for Outdoor humidity value
