@@ -19,6 +19,8 @@ And create an app with user interface with following frames:
 
 Make sure to set the app to use *Push Mode*. Publish your app as a private app.
 
+![screencast](lametric_app.png)
+
 Keep a copy of the: 
 - App ID 
 - Access Token
@@ -29,10 +31,12 @@ Go to the [Netatmo Developer Site](https://dev.netatmo.com)
 
 Again create an app. Leave Redirect URI / Webhook URI empty. Make sure to enable the app. 
 
+![screencast](netatmo_app.png)
+
 Keep a copy of the: 
 - Client id
 - Client secret
-- Your netatmo username (email) and password
+- Your netatmo app developer username (email) and password
 
 ## Update Script 
 
