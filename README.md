@@ -2,7 +2,7 @@
 
 A simple client which turns LaMetric into Netamo display. This client polls [Netatmo API](https://github.com/philippelt/netatmo-api-python)  and shows the weather data on LaMetric display.
 
-![screencast](netatmo.gif)
+![screencast](screenshots/netatmo.gif)
 
 ## LaMetric Setup
 
@@ -19,7 +19,7 @@ And create an app with user interface with following frames:
 
 Make sure to set the app to use *Push Mode*. Publish your app as a private app.
 
-![screencast](lametric_app.png)
+![screencast](screenshots/lametric_app.png)
 
 Keep a copy of the: 
 - App ID 
@@ -31,7 +31,7 @@ Go to the [Netatmo Developer Site](https://dev.netatmo.com)
 
 Again create an app. Leave Redirect URI / Webhook URI empty. Make sure to enable the app. 
 
-![screencast](netatmo_app.png)
+![screencast](screenshots/netatmo_app.png)
 
 Keep a copy of the: 
 - Client id
