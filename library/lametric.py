@@ -7,7 +7,7 @@ import urllib2
 # Common definitions
 
 _BASE_URL       = "https://developer.lametric.com/"
-_PUSH_URL       = _BASE_URL + "api/V1/dev/widget/update/"
+_PUSH_URL       = _BASE_URL + "api/V1/dev/widget/update/com.lametric."
 
 class Setup(object):
 

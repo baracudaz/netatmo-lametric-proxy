@@ -103,10 +103,14 @@ class DeviceList:
             self.modules.append({ m['_id'] : m for m in data['modules'] })
 
         self.default_station = list(self.stations.values())[0]['station_name']
+        self.default_location = self.stations.values()[0]['place']
         self.user = self.rawData['user']        
 
     def userData(self):
         return self.user
+
+    def locationData(self):
+        return self.default_location
 
     def modulesNamesList(self, station=None):
         res = [m['module_name'] for m in self.modules.values()]
