@@ -43,12 +43,12 @@ rise_time, set_time = ro.calculate()
 
 for module in theData.keys():
     data_type = theData[module]['data_type']
-    if ('Pressure' in data_type and 'CO2' in data_type):
+    if (theData[module]['type'] == 'NAMain'):
         device_name = module
         device_id   = theData[module]['id']
         device_type = ', '.join(data_type)
         print "Detected station: %s '%s' - %s" % (device_id, device_name, device_type)
-    elif ('Temperature' in data_type and 'Humidity' in data_type):
+    elif (theData[module]['type'] == 'NAModule1'):
         module_name = module
         module_id   = theData[module]['id']
         module_type = ', '.join(data_type)

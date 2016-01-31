@@ -155,6 +155,7 @@ class DeviceList:
             lastD[s['module_name']]['wifi_status'] = s['wifi_status']
             lastD[s['module_name']]['id'] = s['_id']
             lastD[s['module_name']]['data_type'] = s['data_type']
+            lastD[s['module_name']]['type'] = s['type']
 
         for mod in s["modules"]:
             ds = mod['dashboard_data']
@@ -163,6 +164,7 @@ class DeviceList:
                 lastD[mod['module_name']]['When'] = lastD[mod['module_name']].pop("time_utc")
                 lastD[mod['module_name']]['id'] = mod['_id']
                 lastD[mod['module_name']]['data_type'] = mod['data_type']
+                lastD[mod['module_name']]['type'] = mod['type']
                 # For potential use, add battery and radio coverage information to module data if present
                 for i in ('battery_vp', 'rf_status') :
                     if i in mod : lastD[mod['module_name']][i] = mod[i]
