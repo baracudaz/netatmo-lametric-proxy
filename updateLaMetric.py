@@ -42,14 +42,22 @@ ro = SunriseSunset.Setup(datetime.datetime.now(), latitude=lat, longitude=lng, l
 rise_time, set_time = ro.calculate()
 
 for module in theData.keys():
-    if 'Pressure' in theData[module]['data_type']:
+    data_type = theData[module]['data_type']
+    if ('Pressure' in data_type and 'CO2' in data_type):
         device_name = module
-        device_id = theData[module]['id']
-        print "Detected station module: %s '%s'" % (device_id, device_name)
-    else:
+        device_id   = theData[module]['id']
+        device_type = ', '.join(data_type)
+        print "Detected station: %s '%s' - %s" % (device_id, device_name, device_type)
+    elif ('Temperature' in data_type and 'Humidity' in data_type):
         module_name = module
         module_id   = theData[module]['id']
-        print "Detected outdoor module: %s '%s'" % (module_id, module_name)
+        module_type = ', '.join(data_type)
+        print "Detected module : %s '%s' - %s" % (module_id, module_name, module_type)
+    else:
+        m_name = module
+        m_id   = theData[module]['id']
+        m_type = ', '.join(data_type)
+        print "Detected other  : %s '%s' - %s" % (m_id, m_name, m_type)
 
 now   = time.time();
 # Retrieve data from midnight until now
