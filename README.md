@@ -17,6 +17,8 @@ And create an app with user interface with following frames:
 5. "Name" frame for Sunrise time
 6. "Name" frame for Sunset time
 
+Note: Both frame text and icon are optional. They will be overriden by the script.
+
 Make sure to set the app to use *Push Mode*. Publish your app as a private app.
 
 ![screencast](screenshots/lametric_app.png)
