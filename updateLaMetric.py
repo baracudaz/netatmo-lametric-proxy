@@ -42,22 +42,20 @@ ro = SunriseSunset.Setup(datetime.datetime.now(), latitude=lat, longitude=lng, l
 rise_time, set_time = ro.calculate()
 
 for module in theData.keys():
-    data_type = theData[module]['data_type']
-    if (theData[module]['type'] == 'NAMain'):
-        device_name = module
-        device_id   = theData[module]['id']
-        device_type = ', '.join(data_type)
-        print "Detected station: %s '%s' - %s" % (device_id, device_name, device_type)
-    elif (theData[module]['type'] == 'NAModule1'):
+    m_id = theData[module]['id']
+    m_type = theData[module]['type']
+    m_data_type = theData[module]['data_type']
+    m_data = ', '.join(m_data_type)
+    if (m_type == 'NAMain'):
+        station_name = module
+        station_id   = m_id
+        print "Detected station: %s '%s' - %s, %s" % (m_id, module, m_type, m_data)
+    elif (m_type == 'NAModule1' and 'CO2' not in m_data_type):
         module_name = module
-        module_id   = theData[module]['id']
-        module_type = ', '.join(data_type)
-        print "Detected module : %s '%s' - %s" % (module_id, module_name, module_type)
+        module_id   = m_id
+        print "Detected module : %s '%s' - %s, %s" % (m_id, module, m_type, m_data)
     else:
-        m_name = module
-        m_id   = theData[module]['id']
-        m_type = ', '.join(data_type)
-        print "Detected other  : %s '%s' - %s" % (m_id, m_name, m_type)
+        print "Detected other  : %s '%s' - %s, %s" % (m_id, module, m_type, m_data)
 
 now   = time.time();
 # Retrieve data from midnight until now
@@ -66,7 +64,7 @@ now   = time.time();
 # Retrieve data for last 24hours
 last_day  = now - 36 * 3600;
 
-measure = devList.getMeasure(device_id, '1hour', 'Temperature', module_id, date_begin = last_day, date_end = now, optimize = True)
+measure = devList.getMeasure(station_id, '1hour', 'Temperature', module_id, date_begin = last_day, date_end = now, optimize = True)
 
 # Convert temperature values returned by Netatmo to simple field
 hist_temp = [v[0] for v in measure['body'][0]['value']]
@@ -75,8 +73,8 @@ hist_temp = [v[0] for v in measure['body'][0]['value']]
 outdoor = {}
 outdoor['temperature'] = str(theData[module_name]['Temperature'])+"°C"
 outdoor['humidity']    = str(theData[module_name]['Humidity'])+'%'
-outdoor['pressure']    = str(theData[device_name]['Pressure'])+'mb'
-outdoor['trend']       = str(theData[device_name]['pressure_trend'])
+outdoor['pressure']    = str(theData[station_name]['Pressure'])+'mb'
+outdoor['trend']       = str(theData[station_name]['pressure_trend'])
 
 print outdoor
 
