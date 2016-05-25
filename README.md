@@ -42,18 +42,20 @@ Keep a copy of the:
 
 ## Update Script 
 
-Once you have created your LaMetric and Netatmo apps you can use APIs to access the data. Now open the `updateLaMetric.py` script and copy in the credentials from the steps above:
+Once you have created your LaMetric and Netatmo apps you can use APIs to access the data. Now open the `config.ini` file in the same directory as the updateLaMetric.py script and copy in the credentials from the steps above:
 
 ```
 # Netatmo authentication
-client_id     = '...'
-client_secret = '...'
-username      = '...'
-password      = '...'
+[netatmo]
+client_id     = ...
+client_secret = ...
+username      = ...
+password      = ...
 
 # LaMetric authentication
-access_token  = '...'
-app_id        = '...'
+[lametric]
+access_token  = ...
+app_id        = ...
 ```
 
 Running `updateLaMetric.py` script should give you immediate feedback on how successful you are with the setup process. Once everything is OK the easiest way to keep the LaMetric display updated is via cron task:
