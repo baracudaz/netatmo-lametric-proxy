@@ -98,13 +98,10 @@ if temp_units == 'F' :
     indoorTemp = indoorTemp * 1.8 + 32
     outdoorTemp = outdoorTemp * 1.8 + 32
 
-#outdoor['temperature'] = str(theData[module_name]['Temperature'])+"°C"
 outdoor['temperature'] = str(outdoorTemp) + "°" + temp_units
 outdoor['humidity']    = str(theData[module_name]['Humidity'])+'%'
 outdoor['pressure']    = str(theData[station_name]['Pressure'])+'mb'
 outdoor['trend']       = str(theData[station_name]['pressure_trend'])
-
-print str(outdoorTemp-indoorTemp)
 
 print outdoor
 
