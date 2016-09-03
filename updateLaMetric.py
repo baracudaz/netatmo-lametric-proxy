@@ -4,9 +4,12 @@
 from library import lnetatmo
 from library import lametric
 from library import SunriseSunset
+from library.tzlocal import get_localzone
 import datetime
 import time
+import pytz
 import json
+import ConfigParser
 
 # Netatmo / LaMetric Proxy
 # Author : Stanislav Likavcan, likavcan@gmail.com
@@ -18,15 +21,24 @@ import json
 
 ######################## USER SPECIFIC INFORMATION ######################
 
+config = ConfigParser.ConfigParser()
+config.read("config.ini")
+
 # Netatmo authentication
-client_id     = '...' 
-client_secret = '...' 
-username      = '...' 
-password      = '...' 
+client_id     = config.get('netatmo','client_id')
+client_secret = config.get('netatmo','client_secret')
+username      = config.get('netatmo','username')
+password      = config.get('netatmo','password')
 
 # LaMetric authentication
-access_token  = '...'
-app_id        = '...'
+access_token  = config.get('lametric','access_token')
+app_id        = config.get('lametric','app_id')
+
+# Display preferences
+temp_units    = config.get('display','temperature_units')
+
+# Use Celsius unless the config file is attempting to set things to Farenheit
+temp_units = 'C' if temp_units[0].upper() != 'F' else 'F'
 
 #########################################################################
 
@@ -38,10 +50,16 @@ theData = devList.lastData()
 # Location GPS coordinates from Netatmo
 lng, lat = devList.locationData()['location']
 
-ro = SunriseSunset.Setup(datetime.datetime.now(), latitude=lat, longitude=lng, localOffset = 1)
+now = datetime.datetime.now()
+utc = get_localzone().localize(now).astimezone(pytz.utc).replace(tzinfo=None)
+
+localOffset =  (utc - now).seconds / -3600
+
+ro = SunriseSunset.Setup(datetime.datetime.now(), latitude=lat, longitude=lng, localOffset = localOffset)
 rise_time, set_time = ro.calculate()
 
 for module in theData.keys():
+    print module
     m_id = theData[module]['id']
     m_type = theData[module]['type']
     m_data_type = theData[module]['data_type']
@@ -67,11 +85,20 @@ last_day  = now - 36 * 3600;
 measure = devList.getMeasure(station_id, '1hour', 'Temperature', module_id, date_begin = last_day, date_end = now, optimize = True)
 
 # Convert temperature values returned by Netatmo to simple field
-hist_temp = [v[0] for v in measure['body'][0]['value']]
+hist_temp = [int(round(v[0],0)) for v in measure['body'][0]['value']]
 
 # Retrieve current sensor data
 outdoor = {}
-outdoor['temperature'] = str(theData[module_name]['Temperature'])+"°C"
+
+indoorTemp = theData[station_name]['Temperature']
+outdoorTemp = theData[module_name]['Temperature']
+
+# Convert to Farenheit as needed
+if temp_units == 'F' :
+    indoorTemp = indoorTemp * 1.8 + 32
+    outdoorTemp = outdoorTemp * 1.8 + 32
+
+outdoor['temperature'] = str(outdoorTemp) + "°" + temp_units
 outdoor['humidity']    = str(theData[module_name]['Humidity'])+'%'
 outdoor['pressure']    = str(theData[station_name]['Pressure'])+'mb'
 outdoor['trend']       = str(theData[station_name]['pressure_trend'])
@@ -79,7 +106,9 @@ outdoor['trend']       = str(theData[station_name]['pressure_trend'])
 print outdoor
 
 # Icons definition
-icon = {'temp': 'i2056', 'humi': 'i863', 'stable': 'i401', 'up': 'i120', 'down': 'i124', 'sunrise': 'a485', 'sunset': 'a486'}
+icon = {'temp': 'i2355', 'tempC': 'i2056', 'humi': 'i863', 'stable': 'i401', 'up': 'i120', 'down': 'i124', 'sunrise': 'a485', 'sunset': 'a486'}
+
+time_format = config.get('display','time_format')
 
 # Post data to LaMetric
 lametric = lametric.Setup()
@@ -87,6 +116,6 @@ lametric.addTextFrame(icon['temp'],outdoor['temperature'])
 lametric.addSparklineFrame(hist_temp)
 lametric.addTextFrame(icon['humi'],outdoor['humidity'])
 lametric.addTextFrame(icon[outdoor['trend']],outdoor['pressure'])
-lametric.addTextFrame(icon['sunrise'],rise_time.strftime("%H:%M"))
-lametric.addTextFrame(icon['sunset'],set_time.strftime("%H:%M"))
+lametric.addTextFrame(icon['sunrise'],rise_time.strftime(time_format))
+lametric.addTextFrame(icon['sunset'],set_time.strftime(time_format))
 lametric.push(app_id, access_token)
