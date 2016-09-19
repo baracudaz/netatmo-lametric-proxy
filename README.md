@@ -27,7 +27,7 @@ Go to the [Netatmo Developer Site](https://dev.netatmo.com) again signin with yo
 
 Create a Netatmo app. Leave both Redirect URI and Webhook URI empty. 
 
-![screencast](screenshots/netatmo_app.png)
+![screencast](screenshots/netatmo_app2.png)
 
 Now make a note of `client_id` and `client_secret`. The `username` which is your emaill and `password` are your Netatmo login credentials. Put all four settings into your `config.ini` within the `[netatmo]` part. Make sure to enable the app.
 
