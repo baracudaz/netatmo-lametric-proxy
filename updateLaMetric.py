@@ -4,6 +4,7 @@
 from library import lnetatmo
 from library import lametric
 from library import SunriseSunset
+import os
 import datetime
 import time
 import json
@@ -18,8 +19,10 @@ import ConfigParser
 # */10 * * * * /home/lametric/updateLaMetric.py
 # Don't forget to create an app within both Netatmo and LaMetric (credentials are in the file config.ini)
 
+# Load the config.ini file
+path = os.path.dirname(__file__)
 config = ConfigParser.ConfigParser()
-config.read("config.ini")
+config.read(path + '/config.ini')
 
 # Configure logging
 loglevel = config.get('general','loglevel')
