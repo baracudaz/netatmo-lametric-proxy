@@ -6,14 +6,16 @@ A simple client which turns LaMetric into Netamo display. This client polls [Net
 
 ## LaMetric Setup
 
-Go to the [LaMetric Developper site](https://developer.lametric.com) signin with your credentials (or signup for an account if you haven't done so already). Now create your new app with with the following five frames:
+Go to the [LaMetric Developper site](https://developer.lametric.com) signin with your credentials (or signup for an account if you haven't done so already). Now create your new private app with with the following six frames:
 
-1. "Name" frame for Outdoor temperature value
-2. "Sparkline" frame for Outdoor temperature graph
-3. "Name" frame for Outdoor humidity value
-4. "Name" frame for Pressure trend (icon) and value
-5. "Name" frame for Sunrise time
-6. "Name" frame for Sunset time
+![screencast](screenshots/lametric_frames.png)
+
+1. frame **Name** for Outdoor temperature value
+2. frame **Sparkline** frame for Outdoor temperature graph
+3. frame **Name** for Outdoor humidity value
+4. frame **Name** for Pressure trend (icon) and value
+5. frame **Name** for Sunrise time
+6. frame **Name** for Sunset time
 
 *Note:* The text and icon on the each frame are optional. They will be overriden by the script anyway.
 
