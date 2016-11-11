@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
+Source: https://github.com/jebeaudet/SunriseSunsetCalculator
 This module is a wrapper to compute sunset and sunrise for a given day,
 location, and zenith value. Sunset and sunrise are returned for the local time
 zone.
